@@ -1,0 +1,101 @@
+<div class="jumbtron">
+  <h1 class="display-4 text-center"> Travels </h1>
+  <hr>
+  <div class="row">
+    <div class="col-md-5">
+      <h6 class="text-center">
+        Update Travel
+      </h6>
+        <form [formGroup]="form" (ngSubmit)="confirmUpdateTravel(travel)">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="datetime-local" value="yyyy-mm-dd" class="form-control" formControlName="date" placeholder="date">
+            </div>
+          </div>
+          <div class="form-group">
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="int" class="form-control" formControlName="vehicleID" placeholder="IdVehicle">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="int" class="form-control" formControlName="cityID" placeholder="IdCity">
+            </div>
+          </div>
+          <div class="form_grup">
+            <button class="btn btn-success" type="submit" style="margin:auto; display:block;">Confirm Update</button>
+          </div>
+        </form>
+        <hr>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createmodal" style="margin:auto; display:block;"> Create </button>
+    </div>
+    <div class="col-md-7">
+      <h6 class="text-center">
+        Listar Travel
+      </h6>
+      <input  class="form-control" placeholder="Patent, Type Or City"[(ngModel)]="filterPost" name="filterpost" >
+      <table class="table table-sm">
+        <thead >
+            <th>Fecha</th>
+            <th>Patent</th>
+            <th>Type</th>
+            <th>Brand</th>
+            <th>City</th>
+            <th>Acción</th>
+        </thead>
+        <tbody >
+            <tr *ngFor="let travel of travelsService.list | pipes:filterPost">
+                <td >{{travel.date}}</td>
+                <td>{{travel.vehicle.patent}}</td>
+                <td>{{travel.vehicle.type}}</td>
+                <td>{{travel.vehicle.brand}}</td>
+                <td>{{travel.city.name}}</td>
+                <td>
+                    <button class="btn btn-small  btn-block btn-danger" (click)="eliminarTravel(travel.id)"> Delete </button>
+                    <button class="btn btn-info" (click)="updateTravel(travel)"> Modificar </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ----------------------------------------------MODAL CREATE--------------------------------------------------------------------------- -->
+
+<div class="modal fade" id="createmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Create Travel</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="createTravel()">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="datetime-local" value="yyyy-mm-dd" class="form-control" formControlName="date" placeholder="date">
+            </div>
+          </div>
+          <div class="form-group">
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="int" class="form-control" formControlName="vehicleID" placeholder="IdVehicle">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="int" class="form-control" formControlName="cityID" placeholder="IdCity">
+            </div>
+          </div>
+          <hr>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" type="submit">Create</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
